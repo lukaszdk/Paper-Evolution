@@ -20,7 +20,9 @@ end
 function Enemy:checkPlayer()
 	if player.dead then return end
 
-	if Vector:new(self.x + self.w/2, self.y):distance(player:getPosition()) < 70 then
+	local pos = player:getPosition()
+
+	if Vector:new(self.x + self.w/2, self.y):distance(player:getPosition()) < 70 and pos.y >= self.y - self.h + 20 and pos.y <= self.y then
 		player:kill()
 	end
 end
@@ -29,7 +31,7 @@ function Enemy:update(dt)
 
 	local pos = player:getPosition()
 
-	if pos.x < self.x and self.x - pos.x < 175 then
+	if pos.x < self.x and self.x - pos.x < 175 and pos.y >= self.y - self.h + 20 and pos.y <= self.y then
 		self.state = "attack"
 	else
 		self.state = "idle"
@@ -50,4 +52,10 @@ function Enemy:draw()
 	elseif self.state == "attack" then
 		self.attack:draw(self.x, self.y - self.h + 20)
 	end
+	
+	g.setColor(255,0,0,255)
+--	g.line(self.x - 10, self.y, self.x + 10, self.y)
+--	g.line(self.x - 10, self.y - self.h + 20, self.x + 10, self.y - self.h + 20)
+
+	
 end

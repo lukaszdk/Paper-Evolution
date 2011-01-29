@@ -87,6 +87,9 @@ function Eraser:getAndClearCutLine()
 	
 	self.p1 = nil
 	self.p2 = nil
+	
+	self.cp1 = p1
+	self.cp2 = p2
 
 	return Line:new(p1, p2)
 end
@@ -94,16 +97,16 @@ end
 function Eraser:draw()
 	g.setColor(0,0,0,255)
 
---  self.rect:draw()
+--	self.rect:draw()
 --	g.rectangle("fill", self.rect.position.x - self.rect.size.x, self.rect.position.y - self.rect.size.y, self.rect.size.x, self.rect.size.y)
 	
 	self.image:draw(self.pos.x + 60, self.pos.y - 25)
 --	g.setColor(255,0,0,255)
 --	g.circle("fill", self.pos.x, self.pos.y, 4, 32)
 	
-	if self.p1 and self.p2 then
+	if self.cp1 and self.cp2 then
 		g.setColor(255,0,0,255)
-		g.line(self.p1.x, self.p1.y, self.p2.x, self.p2.y)
+--		g.line(self.cp1.x, self.cp1.y, self.cp2.x, self.cp2.y)
 	end
 	
 	if self.points then	

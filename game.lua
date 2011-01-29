@@ -13,7 +13,7 @@ Game = GameState:addState('Game')
 
 function Game:enterState()
 	self.level = Level:new(1600, 768)
-	player = Player:new(Vector:new(-0, 300))
+	player = Player:new(Vector:new(100, 100))
 	self.eraser = Eraser:new(Vector:new(200,200), Vector:new(40,40))
 	self.camera = Camera:new(0, 0, self.level.w, self.level.h)
 	
@@ -37,7 +37,7 @@ function Game:update(dt)
 	
 	if self.eraser:hasCutLine() then
 		local cutLine = self.eraser:getAndClearCutLine()
-		self.level:erase(cutLine, 65)
+		self.level:erase(cutLine, 80)
 	end
 	
 	

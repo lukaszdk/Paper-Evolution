@@ -3,8 +3,14 @@ local g = love.graphics
 Line = class('Line')
 
 function Line:initialize(p1, p2)
-	self.p1 = p1
-	self.p2 = p2
+
+	if p1.x > p2.x then
+		self.p1 = p2
+		self.p2 = p1
+	else
+		self.p1 = p1
+		self.p2 = p2
+	end
 end
 
 function Line:intersect(line)
