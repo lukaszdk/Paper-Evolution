@@ -117,6 +117,10 @@ function Level:update(dt)
 		
 		self.add = nil
 	end
+	
+	for k, platform in ipairs(self.platforms) do
+		platform:update(dt)
+	end
 
 	self.enemies:call('checkPlayer')
 	self.enemies:update(dt)

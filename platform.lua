@@ -1,5 +1,6 @@
 require 'assets.lua'
 require 'image.lua'
+require 'animation.lua'
 
 local g = love.graphics
 
@@ -15,6 +16,8 @@ function Platform:initialize(x, y, w, h, mass)
 	
 	local img = Assets.LoadImage('texture01.png')
 	self.image = Image:new(img,7,10,277,12)
+	
+	self.animation = newAnimation(img, 7, 10, 277, 36, 0.2, 2, 1)
 	
 	self.body = love.physics.newBody(world, self.x + self.w / 2, self.y + self.h/2, self.mass, 0)
 	self.shape = love.physics.newRectangleShape(self.body, 0, 0, self.w, self.h, 0)
@@ -60,11 +63,16 @@ function Platform:cut(line, width)
 	return false, nil, nil
 end
 
+function Platform:update(dt)
+	self.animation:update(dt)
+end
+
 function Platform:draw()
 	if self.shape then
 		local x, y, a = self.body:getX(), self.body:getY(), self.body:getAngle()
-		self.image:draw(x, y, self.w, self.h, a)
+--		self.image:draw(x, y, self.w, self.h, a)
 
+		self.animation:draw(x, y, a, self.w / 277,  self.h / 12, 277/2, 12/2)
 --		self.rect:draw()
 --		self.line:draw()
 	end
