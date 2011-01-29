@@ -6,13 +6,14 @@ local g = love.graphics
 
 Platform = class('Platform')
 
-function Platform:initialize(x, y, w, h, mass)
+function Platform:initialize(x, y, w, h, mass, wall, angle)
 	self.x = x
 	self.y = y
 	self.w = w
 	self.h = h or 10
 	self.mass = mass or 0
-	self.wall = false
+	self.wall = wall or false
+	self.angle = angle or 0
 	
 	local img = Assets.LoadImage('texture01.png')
 	self.image = Image:new(img,7,10,277,12)
@@ -20,7 +21,9 @@ function Platform:initialize(x, y, w, h, mass)
 	self.animation = newAnimation(img, 7, 10, 277, 36, 0.2, 2, 1)
 	
 	self.body = love.physics.newBody(world, self.x + self.w / 2, self.y + self.h/2, self.mass, 0)
+	self.body:setAngle(self.angle)
 	self.shape = love.physics.newRectangleShape(self.body, 0, 0, self.w, self.h, 0)
+	self.shape:setData(self)
 	
 	self.line = Line:new(Vector:new(self.x, self.y + self.h/2), Vector:new(self.x + self.w, self.y + self.h/2))
 	self.rect = Rect:new(Vector:new(self.x, self.y), Vector:new(self.w, self.h))
@@ -46,13 +49,13 @@ function Platform:cut(line, width)
 		local w2 = self.w - (ip.x - self.x)
 		
 		if w1 > 0 then
-			p1 = Platform:new(self.x, self.y, w1, self.h)
+			p1 = Platform:new(self.x, self.y, w1, self.h, self.mass, self.wall, self.angle)
 		else
 			p1 = nil
 		end
 		
 		if w2 > 0 then
-			p2 = Platform:new(ip.x + width/2, self.y, w2, self.h)
+			p2 = Platform:new(ip.x + width/2, self.y, w2, self.h, self.mass, self.wall, self.angle)
 		else
 			p2 = nil
 		end

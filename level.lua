@@ -2,6 +2,7 @@ require 'line.lua'
 require 'platform.lua'
 require 'enemy.lua'
 require 'group.lua'
+require 'wall.lua'
 
 local g = love.graphics
 local p = love.physics
@@ -19,23 +20,28 @@ function Level:initialize(w, h)
 
 	world:setCallbacks(collisionBegin, collisionPersist, collisionEnd, nil)
 
-	self:addPlatform(20, 300, 600)
-	self:addPlatform(250, 400, 1150)
-	self:addPlatform(800, 500, 600)
+	self:addPlatform(0, 300, 600)
+	self:addPlatform(800, 500, 1300)
 
+--	self:addPlatform(100, 100, 100, 10, 0, true, math.pi/2)
+
+	
+	self.walls = Group:new()
+	self.walls:add(Wall:new(200, 350, 100, 10, math.pi/2, true))
+	self.walls:add(Wall:new(250, 400, 1450))
 
 	self.enemies = Group:new()
 	self.enemies:add(Enemy:new(400, 300))
 
-	self.exit = Rect:new(Vector:new(1200, 540), Vector:new(60, 60), 0,255,0,128)
+--	self.exit = Rect:new(Vector:new(1200, 540), Vector:new(60, 60), 0,255,0,128)
 end
 
-function Level:addPlatform(x, y, w)
+function Level:addPlatform(x, y, w, h, mass, wall, angle)
 	self.platforms = self.platforms or {}
 	self.platforms.size = self.platforms.size or 0
 	self.platforms.size = self.platforms.size + 1
 	
-	self.platforms[ self.platforms.size ] = Platform:new(x,y,w)	
+	self.platforms[ self.platforms.size ] = Platform:new(x,y,w, h, mass, wall, angle)	
 end
 
 function collisionBegin(a, b, contact)
@@ -70,9 +76,8 @@ function collisionEnd(a, b, contact)
 	end
 end
 
-
 function Level:atExit(pos)	
-	return self.exit:contains(pos)
+	return pos.x-100 > self.w	
 end
 
 function Level:erase(line, width)
@@ -124,6 +129,8 @@ function Level:update(dt)
 
 	self.enemies:call('checkPlayer')
 	self.enemies:update(dt)
+	
+	self.walls:update(dt)
 end
 
 function Level:draw()
@@ -133,6 +140,8 @@ function Level:draw()
 		platform:draw()
 	end
 	
+	self.walls:draw()
+	
 	self.enemies:draw()
-	self.exit:draw()	
+--	self.exit:draw()	
 end
