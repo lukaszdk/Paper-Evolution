@@ -3,6 +3,7 @@ require 'player.lua'
 require 'vector.lua'
 require 'eraser.lua'
 require 'camera.lua'
+require 'background.lua'
 
 local g = love.graphics
 local k = love.keyboard
@@ -12,6 +13,8 @@ Game = GameState:addState('Game')
 
 
 function Game:enterState()
+	self.background = Background:new(1600)
+
 	self.level = Level:new(1600, 768)
 	player = Player:new(Vector:new(100, 100))
 	self.eraser = Eraser:new(Vector:new(200,200), Vector:new(40,40))
@@ -59,8 +62,9 @@ end
 
 function Game:draw()
 	g.setBackgroundColor(255,255,255,255)
-	
+		
 	self.camera:set(player:getPosition())
+	self.background:draw()
 	self.level:draw()
 	player:draw()
 	self.eraser:draw()

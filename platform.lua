@@ -59,13 +59,13 @@ function Platform:cut(line, width)
 		if not self.vertical then	
 			local w1 = ip.x - self.x - width/2
 			
-			if w1 > 2 then
+			if w1 > 8 then
 				p1 = Platform:new(self.x, self.y, w1, self.h, self.mass, self.wall, self.vertical)
 			end
 		else
 			local w1 = ip.y - self.y - width/2
 			
-			if w1 > 2 then
+			if w1 > 8 then
 				p1 = Platform:new(self.x, self.y, self.w, w1, self.mass, self.wall, self.vertical)
 			end		
 		end
@@ -73,13 +73,13 @@ function Platform:cut(line, width)
 		if not self.vertical then
 			local w2 = self.w - (ip.x - self.x) - width/2
 			
-			if w2 > 2 then
+			if w2 > 8 then
 				p2 = Platform:new(ip.x + width/2, self.y, w2, self.h, self.mass, self.wall, self.vertical)
 			end
 		else
 			local w2 = self.h - (ip.y - self.y) - width/2
 		
-			if w2 > 2 then
+			if w2 > 8 then
 				p2 = Platform:new(self.x, ip.y + width/2, self.w, w2, self.mass, self.wall, self.vertical)
 			end
 		end
