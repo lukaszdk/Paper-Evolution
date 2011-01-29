@@ -9,7 +9,7 @@ function Player:initialize(position)
 	
 	self.mass = 12
 	self.radius = 15
-	self.force = 24
+	self.force = 50
 	self.dead = false
 	self.atExit = false
 
@@ -36,7 +36,7 @@ function Player:collisionPersist(o,c)
 
 	vx, vy = self.body:getLinearVelocity()
 
-	if vx < 70 then
+	if vx < 130 then
 		self.body:applyForce(self.force, 0)
 	end
 

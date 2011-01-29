@@ -9,6 +9,7 @@ function Camera:initialize(x, y, w, h)
 	self.y = y
 	self.w = w
 	self.h = h
+	self.translation = Vector:new(0,0)
 end
 
 function Camera:set(position)
@@ -20,6 +21,12 @@ function Camera:set(position)
 	g.push()
 	g.scale(self.s)
 	g.translate(x, y)
+	
+	self.translation = Vector:new(x,y)
+end
+
+function Camera:getTranslation()
+	return self.translation
 end
 
 function Camera:clear()

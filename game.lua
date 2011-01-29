@@ -32,7 +32,7 @@ end
 function Game:update(dt)
 	mouseX, mouseY = m.getPosition()
 	
-	self.eraser:setPosition(Vector:new(mouseX, mouseY))
+	self.eraser:setPosition(Vector:new(mouseX-self.camera:getTranslation().x, mouseY))
 	
 	self.level:erase(self.eraser.rect)
 	
@@ -56,6 +56,7 @@ function Game:draw()
 	self.level:draw()
 	self.player:draw()
 	self.eraser:draw()
+
 	self.camera:clear()
 	
 end
