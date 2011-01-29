@@ -13,8 +13,8 @@ function Platform:initialize(x, y, w, h, mass)
 	self.mass = mass or 0
 	self.wall = false
 	
-	local img = Assets.LoadImage('line.png')
-	self.image = Image:new(img, 0,0,512,4)
+	local img = Assets.LoadImage('texture01.png')
+	self.image = Image:new(img,7,10,277,12)
 	
 	self.body = love.physics.newBody(world, self.x + self.w / 2, self.y + self.h/2, self.mass, 0)
 	self.shape = love.physics.newRectangleShape(self.body, 0, 0, self.w, self.h, 0)

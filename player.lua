@@ -26,22 +26,18 @@ function Player:getPosition()
 end
 
 function Player:collisionBegin(o,c)
-	if o.wall then
+	if o and o.wall then
 		self.force = -self.force
 	end
 
 end
 
 function Player:collisionPersist(o,c)
-
 	vx, vy = self.body:getLinearVelocity()
 
 	if vx < 130 then
 		self.body:applyForce(self.force, 0)
 	end
-
---	self.body:applyImpulse(self.force, 0)
-
 end
 
 
@@ -59,9 +55,6 @@ function Player:die()
 end
 
 function Player:draw()
-	g.setColor(0,0,0,255)
---	if vx then g.print("vx " .. vx, 10, 10) end
-
 	g.setColor(0,0,255,255)
 	g.circle("fill", self.body:getX(), self.body:getY(), self.radius)
 end
