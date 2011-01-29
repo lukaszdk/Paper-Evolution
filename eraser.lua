@@ -1,4 +1,6 @@
 require 'rect.lua'
+require 'assets.lua'
+require 'image.lua'
 
 local g = love.graphics
 local m = love.mouse
@@ -8,6 +10,10 @@ Eraser = class('Eraser')
 function Eraser:initialize(position, size)
 	self.rect = Rect:new(position, size, 200,200,200,255)
 	self.pos = position
+	
+	local img = Assets.LoadImage('texture01.png')
+	self.image = Image:new(img, 7, 431, 180, 136)
+	
 --	self.prevPos = position
 
 --	self.prevDir = Vector:new(0,0)
@@ -88,7 +94,12 @@ end
 function Eraser:draw()
 	g.setColor(0,0,0,255)
 
-	self.rect:draw()
+--  self.rect:draw()
+--	g.rectangle("fill", self.rect.position.x - self.rect.size.x, self.rect.position.y - self.rect.size.y, self.rect.size.x, self.rect.size.y)
+	
+	self.image:draw(self.pos.x + 60, self.pos.y - 25)
+--	g.setColor(255,0,0,255)
+--	g.circle("fill", self.pos.x, self.pos.y, 4, 32)
 	
 	if self.p1 and self.p2 then
 		g.setColor(255,0,0,255)

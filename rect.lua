@@ -15,7 +15,7 @@ function Rect:initialize(position, size, r,g,b,a)
 end
 
 function Rect:draw()
-	g.setColor(self.r, self.g, self.g, self.g)
+	g.setColor(self.r, self.g, self.b, self.a)
 	g.rectangle("fill", self.position.x, self.position.y, self.size.x, self.size.y)
 end
 
@@ -48,15 +48,4 @@ function Rect:contains(point)
 	else
 		return false
 	end
-end
-
-function Rect:intersect(rect)
-	
-	local p1, p2, p3, p4 = rect:getCorners()
-	
-	if self:contains(p1) or self:contains(p2) or self:contains(p3) or self:contains(p4) then
-		return true
-	end 
-	
-	return false
 end

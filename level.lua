@@ -1,5 +1,7 @@
 require 'line.lua'
 require 'platform.lua'
+require 'enemy.lua'
+require 'group.lua'
 
 local g = love.graphics
 local p = love.physics
@@ -17,9 +19,14 @@ function Level:initialize(w, h)
 
 	world:setCallbacks(collisionBegin, collisionPersist, collisionEnd, nil)
 
-	self:addPlatform(20, 300, 220)
-	self:addPlatform(250, 600, 1150)
-		
+	self:addPlatform(20, 300, 600)
+	self:addPlatform(250, 400, 1150)
+	self:addPlatform(800, 500, 600)
+
+
+	self.enemies = Group:new()
+	self.enemies:add(Enemy:new(400, 300))
+
 	self.exit = Rect:new(Vector:new(1200, 540), Vector:new(60, 60), 0,255,0,128)
 end
 
@@ -73,18 +80,19 @@ function Level:erase(line, width)
 	self.remove = self.remove or {}	
 	self.add = self.add or {}
 	local i = 1
+	local j = 1
 
 	for k, platform in ipairs(self.platforms) do
-		
 		if platform.shape then		
 			local cut, p1, p2 = platform:cut(line, width)
-		
+
 			if cut then
 				platform.shape:setMask(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16)
-				self.remove[i] = platform
+				self.remove[j] = platform
 				self.add[i] = p1
 				self.add[i+1] = p2
 				i = i + 2
+				j = j + 1
 			end
 		end
 	end
@@ -109,15 +117,18 @@ function Level:update(dt)
 		
 		self.add = nil
 	end
-	
+
+	self.enemies:call('checkPlayer')
+	self.enemies:update(dt)
 end
 
 function Level:draw()
 	g.setColor(0,0,0,255)
-	
+		
 	for k, platform in ipairs(self.platforms) do
 		platform:draw()
 	end
 	
+	self.enemies:draw()
 	self.exit:draw()	
 end

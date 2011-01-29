@@ -12,6 +12,8 @@ function Player:initialize(position)
 	self.force = 50
 	self.dead = false
 	self.atExit = false
+	self.w = 150
+	self.h = 150
 
 	if world then
 		self.body = p.newBody(world, position.x, position.y, self.mass, 0) --place the body in the center of the world, with a mass of 15
@@ -19,6 +21,12 @@ function Player:initialize(position)
 		self.shape:setData(self)
 	end
 	
+	local img = Assets.LoadImage('texture01.png')
+	self.walk = newAnimation(img, 500, 540, self.w, self.h, 0.2, 8, 3)
+end
+
+function Player:kill()
+	self.dead = true
 end
 
 function Player:getPosition()
@@ -48,6 +56,8 @@ function Player:update(dt)
 	if self.body:getY() - self.radius >= g.getHeight() then
 		self:die()
 	end
+	
+	self.walk:update(dt)
 end
 
 function Player:die()
@@ -56,5 +66,9 @@ end
 
 function Player:draw()
 	g.setColor(0,0,255,255)
-	g.circle("fill", self.body:getX(), self.body:getY(), self.radius)
+	local pos = self:getPosition()
+	
+	self.walk:draw(pos.x - self.w/2, pos.y - self.h/2 - 22)
+	
+--	g.circle("fill", self.body:getX(), self.body:getY(), self.radius)
 end

@@ -13,7 +13,7 @@ Game = GameState:addState('Game')
 
 function Game:enterState()
 	self.level = Level:new(1600, 768)
-	self.player = Player:new(Vector:new(100, 250))
+	player = Player:new(Vector:new(100, 250))
 	self.eraser = Eraser:new(Vector:new(200,200), Vector:new(40,40))
 	self.camera = Camera:new(0, 0, self.level.w, self.level.h)
 	
@@ -36,8 +36,8 @@ function Game:update(dt)
 	self.eraser:update(dt)
 	
 	if self.eraser:hasCutLine() then
-		cutLine = self.eraser:getAndClearCutLine()
-		self.level:erase(cutLine, 60)
+		local cutLine = self.eraser:getAndClearCutLine()
+		self.level:erase(cutLine, 65)
 	end
 	
 	
@@ -46,13 +46,13 @@ function Game:update(dt)
 --	end
 	
 	self.level:update(dt)
-	self.player:update(dt)
+	player:update(dt)
 	
-	if self.player.dead then
+	if player.dead then
 		self:enterState()
 	end
 	
-	if self.level:atExit(self.player:getPosition()) then
+	if self.level:atExit(player:getPosition()) then
 		self:enterState()
 	end
 end
@@ -60,16 +60,10 @@ end
 function Game:draw()
 	g.setBackgroundColor(255,255,255,255)
 	
-	self.camera:set(self.player:getPosition())
+	self.camera:set(player:getPosition())
 	self.level:draw()
-	self.player:draw()
+	player:draw()
 	self.eraser:draw()
-	
-	if cutLine then
-		g.setColor(255,0,0,255)
-		g.line(cutLine.p1.x, cutLine.p1.y, cutLine.p2.x, cutLine.p2.y)
-	end
-
 	self.camera:clear()
 	
 end

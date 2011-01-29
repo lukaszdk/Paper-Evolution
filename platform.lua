@@ -18,6 +18,9 @@ function Platform:initialize(x, y, w, h, mass)
 	
 	self.body = love.physics.newBody(world, self.x + self.w / 2, self.y + self.h/2, self.mass, 0)
 	self.shape = love.physics.newRectangleShape(self.body, 0, 0, self.w, self.h, 0)
+	
+	self.line = Line:new(Vector:new(self.x, self.y + self.h/2), Vector:new(self.x + self.w, self.y + self.h/2))
+	self.rect = Rect:new(Vector:new(self.x, self.y), Vector:new(self.w, self.h))
 end
 
 function Platform:destroy()
@@ -28,12 +31,14 @@ function Platform:destroy()
 end
 
 function Platform:cut(line, width)
-	local pline = Line:new(Vector:new(self.x, self.y + self.h/2), Vector:new(self.x + self.w, self.y + self.h/2))
-	local rect = Rect:new(Vector:new(self.x, self.y), Vector:new(self.w, self.h))
+	if self.shape == nil then return end
 	
-	local ip = pline:intersect(line)
+	local ip = self.line:intersect(line)
 	
-	if rect:contains(ip) then	
+	if line.p1.y <= self.y and line.p2.y >= self.y + self.h and
+		line.p1.x >= self.x and line.p1.x <= self.x + self.w and
+		line.p2.x >= self.x and line.p2.x <= self.x + self.w then
+		
 		local w1 = ip.x - self.x - width/2
 		local w2 = self.w - (ip.x - self.x)
 		
@@ -59,5 +64,8 @@ function Platform:draw()
 	if self.shape then
 		local x, y, a = self.body:getX(), self.body:getY(), self.body:getAngle()
 		self.image:draw(x, y, self.w, self.h, a)
+
+--		self.rect:draw()
+--		self.line:draw()
 	end
 end
