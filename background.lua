@@ -15,7 +15,7 @@ function Background:draw()
 	local x = 0
 	
 	while x < self.w do
-		self.image:draw2(x, 0, 384, 768, 255,255,255, 100)
+		self.image:draw2(x, 0, 384, 768, 255,255,255, 150)
 		x = x + 384
 	end
 	

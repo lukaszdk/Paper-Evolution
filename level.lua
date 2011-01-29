@@ -15,6 +15,7 @@ Level = class('Level')
 function Level:initialize(w, h)
 	self.w = w
 	self.h = h
+	self.player = Vector:new(20, 170)
 	
 	world = p.newWorld(0, 0, w, h)
 
@@ -42,7 +43,6 @@ function Level:initialize(w, h)
 	self.enemies = Group:new()
 	self.enemies:add(Enemy:new(400, 300))
 	self.enemies:add(Enemy:new(1400, 400))
-
 
 	local img = Assets.LoadImage('texture02.png')
 	self.postit = Image:new(img, 397, 6, 480, 475)
@@ -153,6 +153,12 @@ function Level:update(dt)
 	self.walls:update(dt)
 end
 
+function Level:postitClose(pos)
+	local r = Rect:new(Vector:new(g.getWidth()/2 + self.postit.w/2 - 60, g.getHeight()/2 - self.postit.h/2 + 20), Vector:new(50, 50))
+	
+	return r:contains(pos)
+end
+
 function Level:drawPostit()
 	self.postit:draw2(g.getWidth()/2 - self.postit.w/2, g.getHeight()/2 - self.postit.h/2)
 end
@@ -166,6 +172,6 @@ function Level:draw()
 	
 	self.walls:draw()
 	self.enemies:draw()
-
+		
 --	self.exit:draw()	
 end

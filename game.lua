@@ -4,6 +4,7 @@ require 'vector.lua'
 require 'eraser.lua'
 require 'camera.lua'
 require 'background.lua'
+require 'assets.lua'
 
 local g = love.graphics
 local k = love.keyboard
@@ -13,10 +14,12 @@ Game = GameState:addState('Game')
 
 
 function Game:enterState()
+	cursor = Assets.LoadImage('cursor.png')
+
 	self.background = Background:new(1600)
 
 	self.level = Level:new(1600, 768)
-	player = Player:new(Vector:new(20, 170))
+	player = Player:new(self.level.player)
 	self.eraser = Eraser:new(Vector:new(200,200), Vector:new(40,40))
 	self.camera = Camera:new(0, 0, self.level.w, self.level.h)
 	
@@ -40,9 +43,10 @@ end
 function Game:update(dt)
 
 	if self.intro then
+		mouseX, mouseY = m.getPosition()
 		local mDown = m.isDown('l') or m.isDown('r')
-		
-		if mDown then
+	
+		if mDown and self.level:postitClose(Vector:new(mouseX, mouseY)) then
 			self.intro = false
 			return
 		end
@@ -90,9 +94,11 @@ function Game:draw()
 	if self.intro then
 		g.setColor(0,0,0, 200)
 		g.rectangle("fill", 0, 0, g.getWidth(), g.getHeight())
-	
+		
 		g.setColor(255,255,255,255)
 		self.level:drawPostit()
+	
+		g.draw(cursor, mouseX, mouseY)	
 	end
 	
 end
