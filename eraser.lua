@@ -4,6 +4,7 @@ require 'image.lua'
 
 local g = love.graphics
 local m = love.mouse
+local a = love.audio
 
 Eraser = class('Eraser')
 
@@ -20,6 +21,11 @@ function Eraser:initialize(position, size)
 --	self.dir = Vector:new(0,0)
 	
 	self.erasing = false
+	self.p1 = nil
+	self.p2 = nil
+	
+	eraserSound = eraserSound or a.newSource('assets/sounds/rubber3.wav')
+	eraserSound:setVolume(0.3)
 end
 
 function Eraser:setPosition(position)
@@ -45,6 +51,8 @@ function Eraser:update(dt)
 	if mouseDown and not self.erasing then
 		self.p1 = self.pos
 		self.erasing = true
+		eraserSound:stop()
+		eraserSound:play()
 	elseif not mouseDown and self.erasing then
 		self.p2 = self.pos
 		self.erasing = false
@@ -90,6 +98,8 @@ function Eraser:getAndClearCutLine()
 	
 	self.cp1 = p1
 	self.cp2 = p2
+	
+--	eraserSound:reset()
 
 	return Line:new(p1, p2)
 end

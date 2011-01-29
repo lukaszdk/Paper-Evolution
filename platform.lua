@@ -37,24 +37,71 @@ function Platform:initialize(x, y, w, h, mass, vertical)
 end
 
 function Platform:destroy()
-	self.shape:destroy()
-	self.body:destroy()
-	self.shape = nil
-	self.body = nil
+
+	if self.shape then
+		self.shape:destroy()
+		self.body:destroy()
+		self.shape = nil
+		self.body = nil
+	end
 end
 
 function Platform:cut(line, width)
-	if self.shape == nil then return end
+	if self.shape == nil or line:length() < 20 then return end
 	
 	local ip = self.line:intersect(line)
 	
-	lineRect = Rect:new(Vector:new(line.p1.x, line.p1.y), Vector:new(line.p2.x - line.p1.x, line.p2.y - line.p1.y))
+--	lineRect = Rect:new(Vector:new(line.p1.x, line.p1.y), Vector:new(line.p2.x - line.p1.x, line.p2.y - line.p1.y))
+	
+	if not self.vertical then
+
+		if ((line.p1.y < self.y and line.p2.y >= self.y) or 
+		   (line.p2.y < self.y and line.p1.y >= self.y)) and
+		   	self.rect:contains(ip) then
 		
-	if self.rect:intersect(lineRect) then
+			self.ip = ip
+			
+			local w1 = ip.x - self.x - width/2
+			
+			if w1 > 8 then
+				p1 = Platform:new(self.x, self.y, w1, self.h, self.mass, self.wall, self.vertical)
+			end
+			
+			local w2 = self.w - (ip.x - self.x) - width/2
+			
+			if w2 > 8 then
+				p2 = Platform:new(ip.x + width/2, self.y, w2, self.h, self.mass, self.wall, self.vertical)
+			end
+			
+			return true, p1, p2
+		end
+	else
+		if ((line.p1.x < self.x and line.p2.x >= self.x) or 
+		   (line.p2.x < self.y and line.p1.x >= self.x)) and
+		   	self.rect:contains(ip) then
+		
+			local w1 = ip.y - self.y - width/2
+			
+			if w1 > 8 then
+				p1 = Platform:new(self.x, self.y, self.w, w1, self.mass, self.wall, self.vertical)
+			end		
+			
+			local w2 = self.h - (ip.y - self.y) - width/2
+
+			if w2 > 8 then
+				p2 = Platform:new(self.x, ip.y + width/2, self.w, w2, self.mass, self.wall, self.vertical)
+			end
+			
+			return true, p1, p2
+		end
+	end
+
+	--[[
+	p1 = nil
+	p2 = nil
+
+	if self.rect:contains(ip) then
 		self.ip = ip
-		
-		p1 = nil
-		p2 = nil
 		
 		if not self.vertical then	
 			local w1 = ip.x - self.x - width/2
@@ -86,8 +133,8 @@ function Platform:cut(line, width)
 		
 		return true, p1, p2
 	end
-	
-	return false, nil, nil
+	]]--
+	return false, p1, p2
 end
 
 function Platform:update(dt)
@@ -108,9 +155,12 @@ function Platform:draw()
 
 --		self.rect:draw()
 --		self.line:draw()
---		if self.ip then g.circle("fill", self.ip.x , self.ip.y, 4, 32) end
-		
 
---		if lineRect then lineRect:draw() end
 	end
+	
+	if self.ip then 
+--		g.setColor(255,0,0,255)
+--		g.circle("fill", self.ip.x , self.ip.y, 4, 32)
+	end
+	
 end

@@ -8,6 +8,7 @@ require 'image.lua'
 
 local g = love.graphics
 local p = love.physics
+local a = love.audio
 
 Level = class('Level')
 
@@ -46,6 +47,10 @@ function Level:initialize(w, h)
 	local img = Assets.LoadImage('texture02.png')
 	self.postit = Image:new(img, 397, 6, 480, 475)
 	
+	music = music or a.newSource('assets/sounds/level1.wav')
+	music:setVolume(0.8)
+	music:setLooping(true)
+	music:play()
 	
 
 --	self.exit = Rect:new(Vector:new(1200, 540), Vector:new(60, 60), 0,255,0,128)

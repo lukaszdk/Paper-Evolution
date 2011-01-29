@@ -25,6 +25,10 @@ function Line:intersect(line)
 	return Vector:new(x,y)
 end
 
+function Line:length()
+	return self.p1:distance(self.p2)
+end
+
 function Line:draw()
 	g.setColor(255,0,0,255)
 	g.line(self.p1.x, self.p1.y, self.p2.x, self.p2.y)
