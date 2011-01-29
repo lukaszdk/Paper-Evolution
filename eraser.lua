@@ -14,4 +14,15 @@ end
 
 function Eraser:draw()
 	self.rect:draw()
+	
+	local rectTop, rectRight, rectBottom, rectLeft = self.rect:getBorders()
+
+	g.setColor(0,0,0,255)
+	g.print("Top " .. rectTop.p1.x .. ", " .. rectTop.p1.y .. " ; " .. rectTop.p2.x .. ", " .. rectTop.p2.y, 10, 30)
+
+--	rectTop:draw()
+--	rectRight:draw()
+--	rectBottom:draw()
+--	rectLeft:draw()
+	
 end

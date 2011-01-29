@@ -2,23 +2,41 @@ local g = love.graphics
 
 Rect = class('Rect')
 
-function Rect:initialize(position, size,r,g,b,a)
+function Rect:initialize(position, size, r,g,b,a)
+	assert(size.x > 0)
+	assert(size.y > 0)
+
 	self.position = position
 	self.size = size
-	self.r = r
-	self.g = g
-	self.b = b
-	self.a = a
+	self.r = r or 0
+	self.g = g or 0
+	self.b = b or 0
+	self.a = a or 255
 end
 
 function Rect:draw()
-	r = self.r or 0
-	g1 = self.g or 0
-	b = self.b or 0
-	a = self.a or 255
-	
-	g.setColor(r,g1,b,a)
+	g.setColor(self.r, self.g, self.g, self.g)
 	g.rectangle("fill", self.position.x, self.position.y, self.size.x, self.size.y)
+end
+
+function Rect:getCorners()
+	assert(self.size.x > 0)
+	assert(self.size.y > 0)
+	p1 = self.position
+	p2 = self.position + Vector:new(self.size.x, 0)
+	p3 = self.position + self.size
+	p4 = self.position + Vector:new(0, self.size.y)
+	
+	return p1, p2, p3, p4
+end
+
+function Rect:getBorders()
+	local p1, p2, p3, p4 = self:getCorners()
+	
+	return	Line:new(p1, p2), 
+			Line:new(p2, p3),
+			Line:new(p4, p3),
+			Line:new(p1, p4)
 end
 
 function Rect:contains(point)
@@ -30,4 +48,15 @@ function Rect:contains(point)
 	else
 		return false
 	end
+end
+
+function Rect:intersect(rect)
+	
+	local p1, p2, p3, p4 = rect:getCorners()
+	
+	if self:contains(p1) or self:contains(p2) or self:contains(p3) or self:contains(p4) then
+		return true
+	end 
+	
+	return false
 end
