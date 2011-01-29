@@ -1,8 +1,10 @@
+require 'assets.lua'
 require 'line.lua'
 require 'platform.lua'
 require 'enemy.lua'
 require 'group.lua'
 require 'wall.lua'
+require 'image.lua'
 
 local g = love.graphics
 local p = love.physics
@@ -33,6 +35,11 @@ function Level:initialize(w, h)
 
 	self.enemies = Group:new()
 	self.enemies:add(Enemy:new(400, 300))
+
+	local img = Assets.LoadImage('texture02.png')
+	self.postit = Image:new(img, 397, 6, 480, 475)
+	
+	
 
 --	self.exit = Rect:new(Vector:new(1200, 540), Vector:new(60, 60), 0,255,0,128)
 end
@@ -134,6 +141,10 @@ function Level:update(dt)
 	self.walls:update(dt)
 end
 
+function Level:drawPostit()
+	self.postit:draw2(g.getWidth()/2 - self.postit.w/2, g.getHeight()/2 - self.postit.h/2)
+end
+
 function Level:draw()
 	g.setColor(0,0,0,255)
 		
@@ -142,7 +153,7 @@ function Level:draw()
 	end
 	
 	self.walls:draw()
-	
 	self.enemies:draw()
+
 --	self.exit:draw()	
 end

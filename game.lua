@@ -16,11 +16,16 @@ function Game:enterState()
 	self.background = Background:new(1600)
 
 	self.level = Level:new(1600, 768)
-	player = Player:new(Vector:new(100, 100))
+	player = Player:new(Vector:new(20, 170))
 	self.eraser = Eraser:new(Vector:new(200,200), Vector:new(40,40))
 	self.camera = Camera:new(0, 0, self.level.w, self.level.h)
 	
 	m.setVisible(false)
+	
+	mouseX, mouseY = m.getPosition()
+	self.eraser:setPosition(Vector:new(mouseX-self.camera:getTranslation().x, mouseY))
+	
+	self.intro = true
 end
 
 function Game:exitState()
@@ -33,6 +38,18 @@ function Game:keyreleased(key)
 end
 
 function Game:update(dt)
+
+	if self.intro then
+		local mDown = m.isDown('l') or m.isDown('r')
+		
+		if mDown then
+			self.intro = false
+			return
+		end
+	end
+	
+	if self.intro then return end
+
 	mouseX, mouseY = m.getPosition()
 	
 	self.eraser:setPosition(Vector:new(mouseX-self.camera:getTranslation().x, mouseY))
@@ -42,12 +59,7 @@ function Game:update(dt)
 		local cutLine = self.eraser:getAndClearCutLine()
 		self.level:erase(cutLine, 80)
 	end
-	
-	
---	if m.isDown('r') or m.isDown('l') then
---		self.level:erase(self.eraser.rect)
---	end
-	
+		
 	self.level:update(dt)
 	player:update(dt)
 	
@@ -65,10 +77,23 @@ function Game:draw()
 		
 	self.camera:set(player:getPosition())
 	self.background:draw()
+
 	self.level:draw()
 	player:draw()
-	self.eraser:draw()
+	
+	if not self.intro then
+		self.eraser:draw()
+	end
+	
 	self.camera:clear()
+
+	if self.intro then
+		g.setColor(0,0,0, 200)
+		g.rectangle("fill", 0, 0, g.getWidth(), g.getHeight())
+	
+		g.setColor(255,255,255,255)
+		self.level:drawPostit()
+	end
 	
 end
 

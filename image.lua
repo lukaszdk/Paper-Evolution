@@ -24,6 +24,16 @@ function Image:draw(x,y,w,h,angle)
 	g.drawq(self.image, self.quad, x, y, 0, w / self.w, h / self.h, self.w/2, self.h/2)
 end
 
+function Image:draw2(x,y,w,h)
+	w = w or self.w
+	h = h or self.h
+	
+	self.image:setFilter('nearest', 'nearest')
+	g.setColor(255,255,255,255)
+	g.drawq(self.image, self.quad, x, y, 0, w / self.w, h / self.h)
+end
+
+
 function Image:drawRotate(x,y,angle)
 	self.image:setFilter('linear', 'linear')
 	g.setColor(255,255,255,255)
