@@ -22,6 +22,9 @@ function LoadLevel(level)
 	level.blocks = Group:new()
 	level.blocks:add(Block:new(600, 100, 200, 100))
 
+	local img = Assets.LoadImage('texture02.png')
+	level.postit = Image:new(img, 397, 507, 480, 475)
+	
 	music = music or a.newSource('assets/sounds/level1.wav')
 	music:setVolume(0.8)
 	music:setLooping(true)
