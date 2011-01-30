@@ -81,7 +81,7 @@ function Player:draw()
 		self.walk:draw(pos.x + self.w/2, pos.y - self.h/2, 0, -1, 1)
 	end
 	
-	g.setColor(255,255,255,255)
+	g.setColor(0,0,255,255)
 --	g.polygon("fill", self.shape:getPoints())
 	
 --	g.circle("fill", pos.x, pos.y, 4, 32)

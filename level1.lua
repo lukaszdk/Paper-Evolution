@@ -29,8 +29,8 @@ function LoadLevel(level)
 	level.walls:add(Wall:new(400, 550, 100))
 
 	level.enemies = Group:new()
-	level.enemies:add(Enemy:new(1200, 400))
-	level.enemies:add(Enemy:new(300, 550))
+	level.enemies:add(Enemy:new(1200+150, 400))
+	level.enemies:add(Enemy:new(300+150, 550))
 
 	
 	music = music or a.newSource('assets/sounds/level1.wav')

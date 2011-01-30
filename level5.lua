@@ -27,8 +27,8 @@ function LoadLevel(level)
 	
 	
 	level.enemies = Group:new()
-	level.enemies:add(Enemy:new(1400, 300))
-	level.enemies:add(Enemy:new(600, 450))
+	level.enemies:add(Enemy:new(1400+150, 300))
+	level.enemies:add(Enemy:new(600+150, 450))
 	
 	
 --	level.blocks = Group:new()

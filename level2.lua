@@ -29,8 +29,8 @@ function LoadLevel(level)
 	level.walls:add(Wall:new(1500, 400, 100))
 
 	level.enemies = Group:new()
-	level.enemies:add(Enemy:new(400, 300))
-	level.enemies:add(Enemy:new(1400, 400))
+	level.enemies:add(Enemy:new(400+150, 300))
+	level.enemies:add(Enemy:new(1400+150, 400))
 
 	local img = Assets.LoadImage('texture02.png')
 	level.postit = Image:new(img, 397, 6, 480, 475)

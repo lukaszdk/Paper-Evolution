@@ -13,7 +13,7 @@ function Enemy:initialize(x, y)
 	local img = Assets.LoadImage('texture01.png')
 	self.idle = newAnimation(img, 300, 0, self.w, self.h, 0.2, 3)
 	self.attack = newAnimation(img, 300, 180, self.w, self.h, 0.07, 7, 3)
-	
+	self.dir = "left"
 	self.state = "idle"
 end
 
@@ -22,7 +22,7 @@ function Enemy:checkPlayer()
 
 	local pos = player:getPosition()
 
-	if Vector:new(self.x + self.w/2, self.y):distance(player:getPosition()) < 70 and pos.y >= self.y - self.h + 20 and pos.y <= self.y then
+	if Vector:new(self.x, self.y):distance(player:getPosition()) < 70 and pos.y >= self.y - self.h + 20 and pos.y <= self.y then
 		player:kill()
 	end
 end
@@ -31,12 +31,28 @@ function Enemy:update(dt)
 
 	local pos = player:getPosition()
 
-	if pos.x < self.x and self.x - pos.x < 175 and pos.y >= self.y - self.h + 20 and pos.y <= self.y then
-		self.state = "attack"
+	if pos.x > self.x then
+		self.dir = "right"
 	else
-		self.state = "idle"
+		self.dir = "left"
 	end
+
+	if self.dir ==  "left" then
 	
+		if pos.x < self.x and math.abs(pos.x-self.x) < 400 and pos.y >= self.y - self.h + 20 and pos.y <= self.y then
+			self.state = "attack"
+		else
+			self.state = "idle"
+		end
+	elseif self.dir == "right" then
+	
+		if pos.x > self.x and math.abs(pos.x-self.x) < 400 and pos.y >= self.y - self.h + 20 and pos.y <= self.y then
+			self.state = "attack"
+		else
+			self.state = "idle"
+		end
+	end
+
 	if self.state == "idle" then
 		self.idle:update(dt)
 	elseif self.state == "attack" then
@@ -47,13 +63,24 @@ end
 function Enemy:draw()
 	g.setColor(255,255,255,255)
 	
-	if self.state == "idle" then
-		self.idle:draw(self.x, self.y - self.h + 20)
-	elseif self.state == "attack" then
-		self.attack:draw(self.x, self.y - self.h + 20)
+	if self.dir == "left" then	
+		if self.state == "idle" then
+			self.idle:draw(self.x - 150, self.y - self.h + 20)
+		elseif self.state == "attack" then
+			self.attack:draw(self.x - 150, self.y - self.h + 20)
+		end
+	elseif self.dir == "right" then
+		if self.state == "idle" then
+			self.idle:draw(self.x + 150, self.y - self.h + 20, 0, -1, 1)
+		elseif self.state == "attack" then
+			self.attack:draw(self.x + 150, self.y - self.h + 20, 0, -1, 1)
+		end	
 	end
 	
 	g.setColor(255,0,0,255)
+--	g.circle("fill", self.x, self.y, 4, 32)
+--	g.line(self.x, self.y, self.x + self.w, self.y)
+	
 --	g.line(self.x - 10, self.y, self.x + 10, self.y)
 --	g.line(self.x - 10, self.y - self.h + 20, self.x + 10, self.y - self.h + 20)
 
