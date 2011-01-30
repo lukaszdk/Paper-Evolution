@@ -12,8 +12,8 @@ local a = love.audio
 
 Level = class('Level')
 
-function Level:initialize(w, h)
-	self.w = w
+function Level:initialize()
+--[[	self.w = w
 	self.h = h
 	self.player = Vector:new(20, 170)
 	
@@ -25,7 +25,6 @@ function Level:initialize(w, h)
 	world:setCallbacks(collisionBegin, collisionPersist, collisionEnd, nil)
 
 	self:addPlatform(0, 300, 500)
---	self:addPlatform(800, 500, 1300)
 	self:addPlatform(1100, 400, 400)
 	self:addPlatform(1300, 500, 300)
 
@@ -46,11 +45,12 @@ function Level:initialize(w, h)
 
 	local img = Assets.LoadImage('texture02.png')
 	self.postit = Image:new(img, 397, 6, 480, 475)
-	
-	music = music or a.newSource('assets/sounds/level1.wav')
+		
+	music = a.newSource('assets/sounds/level1.wav')
 	music:setVolume(0.8)
 	music:setLooping(true)
 	music:play()
+	]]--
 	
 
 --	self.exit = Rect:new(Vector:new(1200, 540), Vector:new(60, 60), 0,255,0,128)
@@ -147,10 +147,14 @@ function Level:update(dt)
 		platform:update(dt)
 	end
 
-	self.enemies:call('checkPlayer')
-	self.enemies:update(dt)
+	if self.enemies then
+		self.enemies:call('checkPlayer')
+		self.enemies:update(dt)
+	end
 	
-	self.walls:update(dt)
+	if self.walls then
+		self.walls:update(dt)
+	end
 end
 
 function Level:postitClose(pos)
@@ -170,8 +174,17 @@ function Level:draw()
 		platform:draw()
 	end
 	
-	self.walls:draw()
-	self.enemies:draw()
-		
+	if self.walls then
+		self.walls:draw()
+	end
+	
+	if self.enemies then
+		self.enemies:draw()
+	end
+	
+	if self.blocks then
+		self.blocks:draw()
+	end
+	
 --	self.exit:draw()	
 end

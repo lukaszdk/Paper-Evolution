@@ -5,20 +5,26 @@ require 'eraser.lua'
 require 'camera.lua'
 require 'background.lua'
 require 'assets.lua'
+require 'block.lua'
 
 local g = love.graphics
 local k = love.keyboard
 local m = love.mouse
+local f = love.filesystem
 
 Game = GameState:addState('Game')
 
+levelNumber = 2
 
 function Game:enterState()
 	cursor = Assets.LoadImage('cursor.png')
 
 	self.background = Background:new(1600)
+	self.level = Level:new()
 
-	self.level = Level:new(1600, 768)
+	f.load('level' .. levelNumber .. '.lua')()	
+	LoadLevel(self.level)
+
 	player = Player:new(self.level.player)
 	self.eraser = Eraser:new(Vector:new(200,200), Vector:new(40,40))
 	self.camera = Camera:new(0, 0, self.level.w, self.level.h)
@@ -28,7 +34,7 @@ function Game:enterState()
 	mouseX, mouseY = m.getPosition()
 	self.eraser:setPosition(Vector:new(mouseX-self.camera:getTranslation().x, mouseY))
 	
-	self.intro = true
+	self.intro = self.level.postit ~= nil
 end
 
 function Game:exitState()
@@ -72,6 +78,7 @@ function Game:update(dt)
 	end
 	
 	if self.level:atExit(player:getPosition()) then
+		levelNumber = levelNumber + 1
 		self:enterState()
 	end
 end
