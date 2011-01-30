@@ -14,29 +14,28 @@ function LoadLevel(level)
 
 	world:setCallbacks(collisionBegin, collisionPersist, collisionEnd, nil)
 
-	level:addPlatform(0, 400, 1300)
+	level:addPlatform(0, 300, 1175)
 
-	level:addPlatform(200, 550, 200)
-	level:addPlatform(500, 550, 1100)
---	level:addPlatform(1300, 600, 300)
-
-
+	level:addPlatform(700, 450, 500)
+	level:addPlatform(600, 600, 1000)
 
 	level.walls = Group:new()
-	level.walls:add(Wall:new(1000, 500, 100, 10, math.pi/2, true))
---	level.walls:add(Wall:new(250, 400, 850))
-	level.walls:add(Wall:new(1300, 400, 100))
-	level.walls:add(Wall:new(400, 550, 100))
+	level.walls:add(Wall:new(1100, 375, 150, 10, math.pi/2, true))
+	level.walls:add(Wall:new(600, 555, 100, 10, math.pi/2, true))
 
-	level.enemies = Group:new()
-	level.enemies:add(Enemy:new(1200, 400))
-	level.enemies:add(Enemy:new(300, 550))
-
+	level.walls:add(Wall:new(1175, 300, 425))
 	
+	
+	level.enemies = Group:new()
+	level.enemies:add(Enemy:new(1400, 300))
+	level.enemies:add(Enemy:new(600, 450))
+	
+	
+--	level.blocks = Group:new()
+--	level.blocks:add(Block:new(1200, 100, 200, 100))
+
 	music = music or a.newSource('assets/sounds/level1.wav')
 	music:setVolume(0.8)
 	music:setLooping(true)
 	music:play()
-	
-
 end

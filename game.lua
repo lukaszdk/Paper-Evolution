@@ -14,7 +14,7 @@ local f = love.filesystem
 
 Game = GameState:addState('Game')
 
-levelNumber = 2
+levelNumber = 1
 
 function Game:enterState()
 	cursor = Assets.LoadImage('cursor.png')

@@ -77,7 +77,7 @@ function Platform:cut(line, width)
 		end
 	else
 		if ((line.p1.x < self.x and line.p2.x >= self.x) or 
-		   (line.p2.x < self.y and line.p1.x >= self.x)) and
+		   (line.p2.x < self.x and line.p1.x >= self.x)) and
 		   	self.rect:contains(ip) then
 		
 			local w1 = ip.y - self.y - width/2

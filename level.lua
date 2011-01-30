@@ -121,6 +121,11 @@ function Level:erase(line, width)
 			end
 		end
 	end
+
+	if self.blocks then
+		self.blocks:call('cut', line)
+	end
+	
 end
 
 function Level:update(dt)
