@@ -46,7 +46,7 @@ function Level:initialize()
 	local img = Assets.LoadImage('texture02.png')
 	self.postit = Image:new(img, 397, 6, 480, 475)
 		
-	music = a.newSource('assets/sounds/level1.wav')
+	music = a.newSource('assets/sounds/level.ogg')
 	music:setVolume(0.8)
 	music:setLooping(true)
 	music:play()

@@ -2,6 +2,7 @@ require 'image.lua'
 require 'animation.lua'
 
 local g = love.graphics
+local a = love.audio
 
 Enemy = class('Enemy')
 
@@ -15,6 +16,11 @@ function Enemy:initialize(x, y)
 	self.attack = newAnimation(img, 300, 180, self.w, self.h, 0.07, 7, 3)
 	self.dir = "left"
 	self.state = "idle"
+	self.time = 0
+
+	self.eatSound = a.newSource('assets/sounds/eat.wav')
+	self.eatSound:setVolume(0.3)
+	self.eatSound:setLooping(true)
 end
 
 function Enemy:checkPlayer()
@@ -28,6 +34,7 @@ function Enemy:checkPlayer()
 end
 
 function Enemy:update(dt)
+	self.time = self.time + dt
 
 	local pos = player:getPosition()
 
@@ -37,10 +44,19 @@ function Enemy:update(dt)
 		self.dir = "left"
 	end
 
+	if self.stopSound and self.stopSound < self.time then
+		self.eatSound:stop()
+	end
+
 	if self.dir ==  "left" then
 	
 		if pos.x < self.x and math.abs(pos.x-self.x) < 400 and pos.y >= self.y - self.h + 20 and pos.y <= self.y then
 			self.state = "attack"
+			
+			if self.eatSound:isStopped() then
+				self.eatSound:play()
+				self.stopSound = self.time + 0.6
+			end
 		else
 			self.state = "idle"
 		end
@@ -48,8 +64,14 @@ function Enemy:update(dt)
 	
 		if pos.x > self.x and math.abs(pos.x-self.x) < 400 and pos.y >= self.y - self.h + 20 and pos.y <= self.y then
 			self.state = "attack"
+			
+			if self.eatSound:isStopped() then
+				self.eatSound:play()
+				self.stopSound = self.time + 0.6
+			end
 		else
 			self.state = "idle"
+			--eatSound:stop()
 		end
 	end
 

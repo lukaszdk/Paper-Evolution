@@ -25,7 +25,7 @@ function LoadLevel(level)
 	local img = Assets.LoadImage('texture02.png')
 	level.postit = Image:new(img, 397, 507, 480, 475)
 	
-	music = music or a.newSource('assets/sounds/level1.wav')
+	music = music or a.newSource('assets/sounds/level.ogg')
 	music:setVolume(0.8)
 	music:setLooping(true)
 	music:play()

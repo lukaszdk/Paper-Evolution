@@ -14,11 +14,15 @@ local f = love.filesystem
 
 Game = GameState:addState('Game')
 
-levelNumber = 6
+levelNumber = 1
 
 function Game:enterState()
 	cursor = Assets.LoadImage('cursor.png')
 
+	if world then 
+		world:setCallbacks(nil, nil, nil, nil)
+	end
+	
 	self.background = Background:new(1600)
 	self.level = Level:new()
 

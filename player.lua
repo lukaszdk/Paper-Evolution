@@ -2,6 +2,7 @@ require 'vector.lua'
 
 local p = love.physics
 local g = love.graphics
+local a = love.audio
 
 Player = class('Player')
 
@@ -27,6 +28,11 @@ function Player:initialize(position)
 	
 	local img = Assets.LoadImage('texture01.png')
 	self.walk = newAnimation(img, 500, 540, self.w, self.h, 0.2, 8, 3)
+	
+	
+--	dieSound = dieSound or a.newSource('assets/sounds/die.wav')
+--	dieSound:setVolume(0.3)
+--	dieSound:setLooping(true)
 end
 
 function Player:kill()
@@ -59,6 +65,10 @@ end
 function Player:update(dt)
 	if self.body:getY() - self.radius >= g.getHeight() then
 		self:die()
+	end
+	
+	if self.body:getY() > 650 then
+--		dieSound:play()
 	end
 	
 	self.walk:update(dt)

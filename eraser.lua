@@ -24,7 +24,7 @@ function Eraser:initialize(position, size)
 	self.p1 = nil
 	self.p2 = nil
 	
-	eraserSound = eraserSound or a.newSource('assets/sounds/rubber3.wav')
+	eraserSound = eraserSound or a.newSource('assets/sounds/rubber.wav')
 	eraserSound:setVolume(0.3)
 end
 

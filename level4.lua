@@ -33,7 +33,7 @@ function LoadLevel(level)
 	level.blocks = Group:new()
 	level.blocks:add(Block:new(1200, 100, 200, 100))
 
-	music = music or a.newSource('assets/sounds/level1.wav')
+	music = music or a.newSource('assets/sounds/level.ogg')
 	music:setVolume(0.8)
 	music:setLooping(true)
 	music:play()

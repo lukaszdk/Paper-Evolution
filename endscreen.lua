@@ -11,7 +11,7 @@ function EndScreen:enterState()
 	local img = Assets.LoadImage( 'endScreen.jpg')
 	self.bg = Image:new(img, 0,0, 1024, 768)
 	
---	music = music or a.newSource('assets/sounds/level1.wav')
+--	music = music or a.newSource('assets/sounds/level.ogg')
 --	music:setVolume(0.8)
 --	music:setLooping(true)
 --	music:play()

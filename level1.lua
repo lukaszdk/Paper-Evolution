@@ -50,7 +50,7 @@ function LoadLevel(level)
 	
 --	level.arrowX = 30
 	
-	music = music or a.newSource('assets/sounds/level1.wav')
+	music = music or a.newSource('assets/sounds/level.ogg')
 	music:setVolume(0.8)
 	music:setLooping(true)
 	music:play()
