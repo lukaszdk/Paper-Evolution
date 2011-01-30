@@ -13,6 +13,12 @@ local a = love.audio
 Level = class('Level')
 
 function Level:initialize()
+
+--	self.platforms = nil
+--	self.remove = nil
+--	self.add = nil
+	
+
 --[[	self.w = w
 	self.h = h
 	self.player = Vector:new(20, 170)
@@ -170,6 +176,10 @@ function Level:update(dt)
 	if self.walls then
 		self.walls:update(dt)
 	end
+	
+	if self.blocks then
+		self.blocks:update(dt)
+	end
 end
 
 function Level:postitClose(pos)
@@ -217,11 +227,11 @@ function Level:draw()
 	end
 	
 	if self.arrowX then
-		self.arrow:draw2(self.arrowX, g.getHeight() - 150, self.arrow.w, self.arrow.h, 255, 255, 255, 100)
+--		self.arrow:draw2(self.arrowX, g.getHeight() - 150, self.arrow.w, self.arrow.h, 255, 255, 255, 150)
 	end
 	
-	self.timeLine1:draw2(0, g.getHeight() - self.timeLine1.h - 3, 800, self.timeLine1.h, 255, 255, 255, 100)
-	self.timeLine2:draw2(800, g.getHeight() - self.timeLine2.h - 3, 800, self.timeLine2.h, 255, 255, 255, 100)
+	self.timeLine1:draw2(0, g.getHeight() - self.timeLine1.h - 3, 800, self.timeLine1.h, 255, 255, 255, 180)
+	self.timeLine2:draw2(800, g.getHeight() - self.timeLine2.h - 3, 800, self.timeLine2.h, 255, 255, 255, 180)
 	
 --	self.exit:draw()	
 end

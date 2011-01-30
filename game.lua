@@ -87,6 +87,7 @@ function Game:update(dt)
 	
 	if player.dead then
 		self:enterState()
+		return
 	end
 	
 	if self.level:atExit(player:getPosition()) then
@@ -97,12 +98,15 @@ function Game:update(dt)
 		else
 			self:enterState()
 		end
+		
+		return
 	end
 	
 	local mDown = m.isDown('l') or m.isDown('r')
 	
 	if self.level:retryTest(Vector:new(mouseX-self.camera:getTranslation().x, mouseY), -self.camera:getTranslation().x) and mDown then
 		self:enterState()
+		return
 	end
 
 end

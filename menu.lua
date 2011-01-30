@@ -17,6 +17,7 @@ function Menu:enterState()
 	local img2 = Assets.LoadImage( 'texture03.png')
 	
 	self.animation = newAnimation(img2, 3, 243, 120, 193, 0.1, 8)
+	self.text = newAnimation(img2, 124, 436, 838, 113, 0.1, 3, 1)
 	
 	music2 = music2 or a.newSource('assets/sounds/intro.ogg')
 	music2:setVolume(0.8)
@@ -43,9 +44,13 @@ function Menu:keypressed(key)
 end
 
 function Menu:update(dt)
-	self.animation:update(dt)
 
 	self.time = self.time + dt
+
+	if self.time > 0.2 then
+		self.animation:update(dt)
+		self.text:update(dt)
+	end
 
 	if self.time < self.goTime then return end
 
@@ -59,5 +64,6 @@ end
 function Menu:draw()
 	self.bg:draw2(0,0)
 	self.animation:draw(552,200)
+	self.text:draw(123,290)
 end
 
