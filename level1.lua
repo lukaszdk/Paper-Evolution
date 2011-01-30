@@ -48,7 +48,7 @@ function LoadLevel(level)
 	level.images:add(signImage)
 	level.images:add(grocImage)
 	
-	level.arrowX = 30
+--	level.arrowX = 30
 	
 	music = music or a.newSource('assets/sounds/level1.wav')
 	music:setVolume(0.8)

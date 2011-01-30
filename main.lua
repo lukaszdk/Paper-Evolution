@@ -1,6 +1,7 @@
 require 'gamestate.lua'
 require 'game.lua'
 require 'menu.lua'
+require 'endscreen.lua'
 
 gameState = GameState:new()
 

@@ -194,7 +194,7 @@ end
 function Level:draw()
 	g.setColor(0,0,0,255)
 		
-	self.exitImage:draw2(self.w - 150, 150)
+	self.exitImage:draw2(self.w - 150, 50)
 		
 	if self.images then
 		self.images:call('draw2')

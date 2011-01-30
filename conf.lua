@@ -1,6 +1,7 @@
 function love.conf(t)
     t.screen.width = 1024
     t.screen.height = 768
-    t.title = "Eraser"
+    t.title = "Paper Evolution"
 	t.screen.vsync = true
+	t.screen.fullscreen = true
 end

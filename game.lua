@@ -14,7 +14,7 @@ local f = love.filesystem
 
 Game = GameState:addState('Game')
 
-levelNumber = 1
+levelNumber = 6
 
 function Game:enterState()
 	cursor = Assets.LoadImage('cursor.png')
@@ -83,7 +83,12 @@ function Game:update(dt)
 	
 	if self.level:atExit(player:getPosition()) then
 		levelNumber = levelNumber + 1
-		self:enterState()
+		
+		if levelNumber == 7 then
+			gameState:gotoState('EndScreen')
+		else
+			self:enterState()
+		end
 	end
 	
 	local mDown = m.isDown('l') or m.isDown('r')
