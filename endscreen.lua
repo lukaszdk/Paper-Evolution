@@ -11,13 +11,15 @@ function EndScreen:enterState()
 	local img = Assets.LoadImage( 'endScreen.jpg')
 	self.bg = Image:new(img, 0,0, 1024, 768)
 	
---	music = music or a.newSource('assets/sounds/level.ogg')
---	music:setVolume(0.8)
---	music:setLooping(true)
---	music:play()
+	music2 = music2 or a.newSource('assets/sounds/intro.ogg')
+	music2:setVolume(0.8)
+	music2:setLooping(true)
+	music2:play()	
 end
 
 function EndScreen:exitState()
+	music2:stop()
+
 end
 
 function EndScreen:keypressed(key)

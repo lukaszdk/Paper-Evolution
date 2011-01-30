@@ -48,6 +48,9 @@ function LoadLevel(level)
 	level.images:add(signImage)
 	level.images:add(grocImage)
 	
+	local img = Assets.LoadImage('texture02.png')
+	level.postit = Image:new(img, 397, 6, 480, 475)
+
 --	level.arrowX = 30
 	
 	music = music or a.newSource('assets/sounds/level.ogg')

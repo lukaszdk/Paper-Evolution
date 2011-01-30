@@ -42,6 +42,10 @@ function Game:enterState()
 end
 
 function Game:exitState()
+
+	if music then
+		music:stop()
+	end
 end
 
 function Game:keypressed(key)
@@ -88,7 +92,7 @@ function Game:update(dt)
 	if self.level:atExit(player:getPosition()) then
 		levelNumber = levelNumber + 1
 		
-		if levelNumber == 7 then
+		if levelNumber == 6 then
 			gameState:gotoState('EndScreen')
 		else
 			self:enterState()
