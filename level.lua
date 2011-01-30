@@ -183,11 +183,11 @@ function Level:drawPostit()
 end
 
 function Level:drawRetry(x)
-	self.retryImage:draw2(30+x, 40)
+	self.retryImage:draw2(30+x, 45)
 end
 
 function Level:retryTest(pos, x)
-	local r = Rect:new(Vector:new(30 + x, 40), Vector:new(self.retryImage.w, self.retryImage.h))
+	local r = Rect:new(Vector:new(30 + x, 45), Vector:new(self.retryImage.w, self.retryImage.h))
 	return r:contains(pos)	
 end
 
@@ -217,11 +217,11 @@ function Level:draw()
 	end
 	
 	if self.arrowX then
-		self.arrow:draw2(self.arrowX, g.getHeight() - 150)
+		self.arrow:draw2(self.arrowX, g.getHeight() - 150, self.arrow.w, self.arrow.h, 255, 255, 255, 100)
 	end
 	
-	self.timeLine1:draw2(0, g.getHeight() - self.timeLine1.h - 3)
-	self.timeLine2:draw2(800, g.getHeight() - self.timeLine1.h - 3)
+	self.timeLine1:draw2(0, g.getHeight() - self.timeLine1.h - 3, 800, self.timeLine1.h, 255, 255, 255, 100)
+	self.timeLine2:draw2(800, g.getHeight() - self.timeLine2.h - 3, 800, self.timeLine2.h, 255, 255, 255, 100)
 	
 --	self.exit:draw()	
 end

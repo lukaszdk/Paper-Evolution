@@ -41,6 +41,10 @@ function Game:exitState()
 end
 
 function Game:keypressed(key)
+
+	if key == 'escape' then
+		gameState:gotoState('Menu')
+	end
 end
 
 function Game:keyreleased(key)
