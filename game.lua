@@ -81,6 +81,13 @@ function Game:update(dt)
 		levelNumber = levelNumber + 1
 		self:enterState()
 	end
+	
+	local mDown = m.isDown('l') or m.isDown('r')
+	
+	if self.level:retryTest(Vector:new(mouseX-self.camera:getTranslation().x, mouseY), -self.camera:getTranslation().x) and mDown then
+		self:enterState()
+	end
+
 end
 
 function Game:draw()
@@ -93,9 +100,10 @@ function Game:draw()
 	player:draw()
 	
 	if not self.intro then
+		self.level:drawRetry(-self.camera:getTranslation().x)
 		self.eraser:draw()
 	end
-	
+
 	self.camera:clear()
 
 	if self.intro then

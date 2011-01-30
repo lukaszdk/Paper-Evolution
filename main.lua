@@ -1,10 +1,11 @@
 require 'gamestate.lua'
 require 'game.lua'
+require 'menu.lua'
 
-local gameState = GameState:new()
+gameState = GameState:new()
 
 function love.load()
-	gameState:gotoState('Game')
+	gameState:gotoState('Menu')
 end
 
 function love.keypressed(key)

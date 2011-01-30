@@ -55,6 +55,14 @@ function Level:initialize()
 	local img = Assets.LoadImage('texture01.png')
 	self.exitImage = Image:new(img, 7, 526, 122, 91)
 
+	local img3 = Assets.LoadImage('texture03.png')
+	
+	self.retryImage = Image:new(img3, 3, 653, 66, 66)
+	self.timeLine1 = Image:new(img3, 3, 817, 800, 69)
+	self.timeLine2 = Image:new(img3, 3, 817+74, 800, 69)
+	
+	self.arrow = Image:new(img3, 3, 720, 66, 66)
+
 --	self.exit = Rect:new(Vector:new(1200, 540), Vector:new(60, 60), 0,255,0,128)
 end
 
@@ -174,6 +182,15 @@ function Level:drawPostit()
 	self.postit:draw2(g.getWidth()/2 - self.postit.w/2, g.getHeight()/2 - self.postit.h/2)
 end
 
+function Level:drawRetry(x)
+	self.retryImage:draw2(30+x, 40)
+end
+
+function Level:retryTest(pos, x)
+	local r = Rect:new(Vector:new(30 + x, 40), Vector:new(self.retryImage.w, self.retryImage.h))
+	return r:contains(pos)	
+end
+
 function Level:draw()
 	g.setColor(0,0,0,255)
 		
@@ -198,6 +215,13 @@ function Level:draw()
 	if self.blocks then
 		self.blocks:draw()
 	end
+	
+	if self.arrowX then
+		self.arrow:draw2(self.arrowX, g.getHeight() - 150)
+	end
+	
+	self.timeLine1:draw2(0, g.getHeight() - self.timeLine1.h - 3)
+	self.timeLine2:draw2(800, g.getHeight() - self.timeLine1.h - 3)
 	
 --	self.exit:draw()	
 end

@@ -9,7 +9,7 @@ function Player:initialize(position)
 	
 	self.mass = 12
 	self.radius = 15
-	self.force = 50
+	self.force = 35
 	self.dead = false
 	self.atExit = false
 	self.w = 150

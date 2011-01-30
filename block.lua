@@ -18,7 +18,6 @@ function Block:initialize(x, y, w, h)
 	self.vline = Image:new(img, 18, 111, 10, 277)
 	self.vline2 = Image:new(img, 73, 111, 10, 277)
 
-
 	self.body = love.physics.newBody(world, self.x + self.w / 2, self.y + self.h/2, self.mass, 0)
 	self.shape = love.physics.newRectangleShape(self.body, 0, 0, self.w, self.h, 0)
 	self.shape:setData(self)
@@ -26,7 +25,7 @@ function Block:initialize(x, y, w, h)
 end
 
 function Block:drop()
-	self.body:setMass(100, 100, 1, 1)
+	self.body:setMass(0, 1, 1, 1)
 	self.dropped = true
 end
 

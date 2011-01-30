@@ -35,7 +35,7 @@ function LoadLevel(level)
 	local img = Assets.LoadImage('texture01.png')
 
 	local loveImage = Image:new(img, 7, 621, 122, 91)
-	loveImage:set(200, 650)
+	loveImage:set(200, 100)
 
 	local signImage = Image:new(img, 7, 717, 122, 91)
 	signImage:set(1000, 100)
@@ -48,7 +48,7 @@ function LoadLevel(level)
 	level.images:add(signImage)
 	level.images:add(grocImage)
 	
-	
+	level.arrowX = 30
 	
 	music = music or a.newSource('assets/sounds/level1.wav')
 	music:setVolume(0.8)
