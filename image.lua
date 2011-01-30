@@ -14,6 +14,11 @@ function Image:initialize(image, x, y, w, h, sx, sy, mirror)
 	self.quad = g.newQuad(x, y, w, h, image:getWidth(), image:getHeight())
 end
 
+function Image:set(px, py)
+	self.px = px
+	self.py = py
+end
+
 function Image:draw(x,y,w,h,angle)
 	w = w or self.w
 	h = h or self.h
@@ -25,6 +30,9 @@ function Image:draw(x,y,w,h,angle)
 end
 
 function Image:draw2(x,y,w,h, r, g1, b, a)
+	x = x or self.px
+	y = y or self.py
+		
 	w = w or self.w
 	h = h or self.h
 	

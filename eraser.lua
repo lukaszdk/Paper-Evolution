@@ -13,7 +13,7 @@ function Eraser:initialize(position, size)
 	self.pos = position
 	
 	local img = Assets.LoadImage('texture01.png')
-	self.image = Image:new(img, 7, 431, 180, 136)
+	self.image = Image:new(img, 7, 431, 122, 91)
 	
 --	self.prevPos = position
 
@@ -110,7 +110,7 @@ function Eraser:draw()
 --	self.rect:draw()
 --	g.rectangle("fill", self.rect.position.x - self.rect.size.x, self.rect.position.y - self.rect.size.y, self.rect.size.x, self.rect.size.y)
 	
-	self.image:draw(self.pos.x + 60, self.pos.y - 25)
+	self.image:draw(self.pos.x + 40, self.pos.y - 40)
 --	g.setColor(255,0,0,255)
 --	g.circle("fill", self.pos.x, self.pos.y, 4, 32)
 	

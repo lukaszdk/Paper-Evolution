@@ -1,3 +1,5 @@
+require 'image.lua'
+
 local p = love.physics
 local a = love.audio
 
@@ -20,8 +22,6 @@ function LoadLevel(level)
 	level:addPlatform(500, 550, 1100)
 --	level:addPlatform(1300, 600, 300)
 
-
-
 	level.walls = Group:new()
 	level.walls:add(Wall:new(1000, 500, 100, 10, math.pi/2, true))
 --	level.walls:add(Wall:new(250, 400, 850))
@@ -32,6 +32,23 @@ function LoadLevel(level)
 	level.enemies:add(Enemy:new(1200+150, 400))
 	level.enemies:add(Enemy:new(300+150, 550))
 
+	local img = Assets.LoadImage('texture01.png')
+
+	local loveImage = Image:new(img, 7, 621, 122, 91)
+	loveImage:set(200, 650)
+
+	local signImage = Image:new(img, 7, 717, 122, 91)
+	signImage:set(1000, 100)
+	
+	local grocImage = Image:new(img, 7, 813, 122, 91)
+	grocImage:set(1400, 600)
+
+	level.images = Group:new()
+	level.images:add(loveImage)
+	level.images:add(signImage)
+	level.images:add(grocImage)
+	
+	
 	
 	music = music or a.newSource('assets/sounds/level1.wav')
 	music:setVolume(0.8)

@@ -52,6 +52,8 @@ function Level:initialize()
 	music:play()
 	]]--
 	
+	local img = Assets.LoadImage('texture01.png')
+	self.exitImage = Image:new(img, 7, 526, 122, 91)
 
 --	self.exit = Rect:new(Vector:new(1200, 540), Vector:new(60, 60), 0,255,0,128)
 end
@@ -174,6 +176,12 @@ end
 
 function Level:draw()
 	g.setColor(0,0,0,255)
+		
+	self.exitImage:draw2(self.w - 150, 200)
+		
+	if self.images then
+		self.images:call('draw2')
+	end
 		
 	for k, platform in ipairs(self.platforms) do
 		platform:draw()
