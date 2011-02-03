@@ -16,7 +16,7 @@ Code: Lukasz Bruun
 
 Graphics: Matias Billeschou
 
-Sound: Anders Monrand
+Sound: Anders Monrad
 
 Gamedesign: Simon Leander Mikkelsen
 
