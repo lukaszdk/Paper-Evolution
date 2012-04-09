@@ -3,7 +3,7 @@ Paper Evolution
 
 A puzzle game made at the Global Game Jam 2011 using the [LÖVE](http://love2d.org) framework.
 
-<img src="https://github.com/lukaszbruun/Paper-Evolution/raw/master/screenshots/gameplay.png">
+<img src="https://github.com/lukaszpaczkowski/Paper-Evolution/raw/master/screenshots/gameplay.png">
 
 [Video](http://www.youtube.com/watch?v=2FZ4U0goknQ)
 
